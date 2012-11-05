@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Collections;
 
 namespace Conta_tolke_Comentario
 {
@@ -26,6 +27,7 @@ namespace Conta_tolke_Comentario
             //open.InitialDirectory = @"C:\Documents and Settings\luishr\Meus documentos\Visual Studio 2010\Projects\BDAutoPecas2\Camadas";
             open.Filter = "Arquivo de texto (*.txt)|*.txt|Arquivo C# (*.cs)|*.cs|Arquivo Dat (*.dat)|*.dat|Todos os Arquivos (*.*)|*.*";
             open.ShowDialog();
+            tb_caminho.Text = open.FileName.ToString();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -33,12 +35,13 @@ namespace Conta_tolke_Comentario
             int contaComentario = 0;
             int contaCodigo = 0;
             int contaLinhaVazia = 0;
+            rtb_ContLinhas.Clear();
             try
             {
                 foreach (String Arquivo in open.FileNames)
                 {
                     
-                    rtb_ContLinhas.Clear();
+                    //rtb_ContLinhas.Clear();
 
                     Linhas = File.ReadAllLines(Arquivo, Encoding.Default);
 
@@ -76,11 +79,33 @@ namespace Conta_tolke_Comentario
                             contaCodigo++;
                     }
                     progressBar.Value = 0;
+                    rtb_ContLinhas.Text += Arquivo;
+                    rtb_ContLinhas.Text += "\nLinhas de Comentarios  =  " + contaComentario;
+                    rtb_ContLinhas.Text += "\nLinhas de Códigos        =  " + contaCodigo;
+                    rtb_ContLinhas.Text += "\nLinhas Vazias              =  " + contaLinhaVazia;
+                    rtb_ContLinhas.Text += "\n===========================";
                 }
-                rtb_ContLinhas.Text += "Linhas de Comentarios = " + contaComentario;
-                rtb_ContLinhas.Text += "\nLinhas de Códigos     = " + contaCodigo;
-                rtb_ContLinhas.Text += "\nLinhas Vazias         = " + contaLinhaVazia;
+                rtb_ContLinhas.Text += "\n         TOTAL GERAL";
+                rtb_ContLinhas.Text += "\n===========================";
+                rtb_ContLinhas.Text += "\nLinhas de Comentarios  =  " + contaComentario;
+                rtb_ContLinhas.Text += "\nLinhas de Códigos        =  " + contaCodigo;
+                rtb_ContLinhas.Text += "\nLinhas Vazias              =  " + contaLinhaVazia;
+                rtb_ContLinhas.Text += "\n===========================";
                 progressBar.Value = 100;
+                float total = contaCodigo + contaComentario + contaLinhaVazia;
+                rtb_ContLinhas.Text += "\nTotal de Linhas  =  " + (total*100);                
+                float perCodigos = contaCodigo/total;
+                rtb_ContLinhas.Text += "\n% Código          =  " + (perCodigos*100);
+                float perComent = contaComentario / total;
+                rtb_ContLinhas.Text += "\n% Comentários   =  " + (perComent*100);
+                
+
+
+
+
+
+
+
             }        
             catch (Exception err)
             {
