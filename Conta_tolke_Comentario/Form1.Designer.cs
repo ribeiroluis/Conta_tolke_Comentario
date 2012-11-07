@@ -79,6 +79,7 @@
             // rtb_ContLinhas
             // 
             this.rtb_ContLinhas.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            //this.rtb_ContLinhas.Font = new System.Drawing.Font(
             this.rtb_ContLinhas.Location = new System.Drawing.Point(12, 81);
             this.rtb_ContLinhas.Name = "rtb_ContLinhas";
             this.rtb_ContLinhas.Size = new System.Drawing.Size(273, 226);

@@ -32,14 +32,18 @@ namespace Conta_tolke_Comentario
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int contaComentario = 0;
-            int contaCodigo = 0;
-            int contaLinhaVazia = 0;
+            int contaComentario;
+            int contaCodigo;
+            int contaLinhaVazia;
+            int[] guardaInfo = new int[3];
             rtb_ContLinhas.Clear();
             try
             {
                 foreach (String Arquivo in open.FileNames)
                 {
+                    contaComentario = 0;
+                    contaCodigo = 0;
+                    contaLinhaVazia = 0;
                     
                     //rtb_ContLinhas.Clear();
 
@@ -79,25 +83,31 @@ namespace Conta_tolke_Comentario
                             contaCodigo++;
                     }
                     progressBar.Value = 0;
+                    rtb_ContLinhas.Font+= rtb_ContLinhas.Font.Bold;
                     rtb_ContLinhas.Text += Arquivo;
                     rtb_ContLinhas.Text += "\nLinhas de Comentarios  =  " + contaComentario;
                     rtb_ContLinhas.Text += "\nLinhas de Códigos        =  " + contaCodigo;
                     rtb_ContLinhas.Text += "\nLinhas Vazias              =  " + contaLinhaVazia;
                     rtb_ContLinhas.Text += "\n===========================";
+                    guardaInfo[0] = guardaInfo[0] + contaComentario;
+                    guardaInfo[1] = guardaInfo[1] + contaCodigo;
+                    guardaInfo[2] = guardaInfo[2] + contaLinhaVazia;
                 }
                 rtb_ContLinhas.Text += "\n         TOTAL GERAL";
                 rtb_ContLinhas.Text += "\n===========================";
-                rtb_ContLinhas.Text += "\nLinhas de Comentarios  =  " + contaComentario;
-                rtb_ContLinhas.Text += "\nLinhas de Códigos        =  " + contaCodigo;
-                rtb_ContLinhas.Text += "\nLinhas Vazias              =  " + contaLinhaVazia;
+                rtb_ContLinhas.Text += "\nLinhas de Comentarios  =  " + guardaInfo[0];
+                rtb_ContLinhas.Text += "\nLinhas de Códigos        =  " + guardaInfo[1];
+                rtb_ContLinhas.Text += "\nLinhas Vazias              =  " + guardaInfo[2];
                 rtb_ContLinhas.Text += "\n===========================";
                 progressBar.Value = 100;
-                float total = contaCodigo + contaComentario + contaLinhaVazia;
-                rtb_ContLinhas.Text += "\nTotal de Linhas  =  " + (total*100);                
-                float perCodigos = contaCodigo/total;
+                float total = guardaInfo[0] + guardaInfo[1] + guardaInfo[2];
+                rtb_ContLinhas.Text += "\nTotal de Linhas  =  " + total;                
+                float perCodigos = guardaInfo[1]/total;
                 rtb_ContLinhas.Text += "\n% Código          =  " + (perCodigos*100);
-                float perComent = contaComentario / total;
+                float perComent = guardaInfo[0] / total;
                 rtb_ContLinhas.Text += "\n% Comentários   =  " + (perComent*100);
+                float perLinhaVazia = guardaInfo[2] / total;
+                rtb_ContLinhas.Text += "\n% Linhas vazias =  " + (perLinhaVazia * 100);
                 
 
 
